@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Convertir } from '../../interfaces/IConvertir';
+import { Convertir } from '@Interfaces/index';
 import { CommonModule } from '@angular/common';
 
 @Component({
