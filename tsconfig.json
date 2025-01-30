@@ -4,6 +4,13 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": "./",
+    "paths": {
+      "@Enums/*": ["./src/app/enum/*"],
+      "@Interfaces/*": ["./src/app/interfaces/*"],
+      "@Components/*": ["./src/app/components/index.ts"],
+      "@Services/*": ["./src/app/services/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
