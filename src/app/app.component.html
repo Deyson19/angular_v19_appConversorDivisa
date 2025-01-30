@@ -4,10 +4,12 @@
 
 <div class="container">
   @if (result() != 0 ) {
-  <h2 class="text-center text-blue-200 text-3xl">
+  <h2 class="text-center text-yellow-700 text-3xl">
     Resultado Obtenido: {{ result() | currency }}
   </h2>
   }
+  <app-history [conversionsHistory]="conversionsList" />
+  <hr class="my-5" />
   <form class="max-w-sm mx-auto">
     <div
       class="shadow-lg bg-indigo-300 p-4 rounded-lg flex gap-2 justify-around"

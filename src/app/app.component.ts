@@ -3,28 +3,44 @@ import {
   Component,
   computed,
   inject,
+  OnInit,
 } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Moneda } from './enum/Moneda';
-import { ConversorService } from './services/conversor.service';
-import { Convertir } from './interfaces/IConvertir';
-import { FooterComponent, HeaderComponent } from './components';
-
+import {
+  FooterComponent,
+  HeaderComponent,
+  HistoryComponent,
+} from './components';
+import { Moneda } from '@Enums/Moneda';
+import { ConversorService } from '@Services/conversor.service';
+import { Convertir } from '@Interfaces/IConvertir';
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    CommonModule,
+    FormsModule,
+    HistoryComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly toast = inject(ToastrService);
   private readonly conversorService = inject(ConversorService);
   constructor() {}
 
-  public monedas: Moneda[] = [Moneda.COP, Moneda.USD, Moneda.EUR];
+  public monedas: Moneda[] = [
+    Moneda.COP,
+    Moneda.USD,
+    Moneda.EUR,
+    Moneda.ARS,
+    Moneda.MXN,
+  ];
   //*Campos del formulario
   public monedaOrigen: string = '';
   public monedaDestino: string = '';
@@ -32,9 +48,12 @@ export class AppComponent {
   public result = computed(() => {
     return this.conversorService.result();
   });
-
+  public conversionsList: Convertir[] = [];
+  ngOnInit() {
+    this.conversionsList = this.conversorService.conversionsList;
+  }
   handleSubmit() {
-    if (this.monedaDestino === this.monedaOrigen) {
+    if ((this.monedaDestino as Moneda) === (this.monedaOrigen as Moneda)) {
       this.toast.info('Escoge unas monedas diferentes.');
       return;
     }
