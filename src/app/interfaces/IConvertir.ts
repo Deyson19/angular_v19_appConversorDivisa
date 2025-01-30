@@ -4,4 +4,5 @@ export interface Convertir {
   cantidad: number;
   monedaOrigen: Moneda;
   monedaDestino: Moneda;
+  total?: number;
 }
